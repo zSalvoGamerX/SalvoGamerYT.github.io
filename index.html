@@ -1,93 +1,358 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SalvoGamerYT - Main Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --background-dark: #121212;
+            --card-dark: #1e1e1e;
+            --text-dark: #f0f0f0;
+            --accent-dark: #7c4dff;
+            --nav-dark: #1a1a1a;
+            --header-dark: #1a1a1a;
+            
+            --background-light: #f5f5f5;
+            --card-light: #ffffff;
+            --text-light: #333333;
+            --accent-light: #6200ee;
+            --nav-light: #e0e0e0;
+            --header-light: #6200ee;
+        }
+        
+        [data-theme="dark"] {
+            --background: var(--background-dark);
+            --card: var(--card-dark);
+            --text: var(--text-dark);
+            --accent: var(--accent-dark);
+            --nav: var(--nav-dark);
+            --header: var(--header-dark);
+        }
+        
+        [data-theme="light"] {
+            --background: var(--background-light);
+            --card: var(--card-light);
+            --text: var(--text-light);
+            --accent: var(--accent-light);
+            --nav: var(--nav-light);
+            --header: var(--header-light);
+        }
+        
         body {
-            font-family: sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #000000;
-            color: #333;
+            background-color: var(--background);
+            color: var(--text);
+            transition: all 0.3s ease;
         }
 
         header {
-            background-color: #333;
-            color: #fff;
+            background-color: var(--header);
+            color: var(--text-dark);
             text-align: center;
-            padding: 1em 0;
+            padding: 1.5em 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
         nav {
-            background-color: #444;
-            color: #fff;
+            background-color: var(--nav);
+            color: var(--text);
             text-align: center;
-            padding: 0.5em 0;
+            padding: 0.8em 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         nav a {
-            color: #fff;
+            color: var(--text);
             text-decoration: none;
             padding: 0.5em 1em;
+            margin: 0 0.2em;
+            border-radius: 4px;
+            transition: all 0.2s ease;
         }
 
         nav a:hover {
-            background-color: #555;
+            background-color: var(--accent);
+            color: white;
         }
 
         main {
-            width: 80%;
+            width: 85%;
+            max-width: 1200px;
             margin: 20px auto;
             overflow: hidden;
         }
 
         .article {
-            background-color: #fff;
-            padding: 20px;
+            background-color: var(--card);
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .article:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .article h2 {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
             margin-bottom: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .article img {
             max-width: 100%;
             height: auto;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            margin-bottom: 20px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+
+        .video-section {
+            margin-bottom: 30px;
+        }
+
+        #videoControls {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: var(--card);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .input-group input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            background-color: var(--background);
+            color: var(--text);
+        }
+
+        button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
         }
 
         .social-links {
             text-align: center;
-            margin-top: 20px;
+            margin: 30px 0;
         }
 
         .social-links a {
             display: inline-block;
-            margin: 0 10px;
-            font-size: 2em; /* Increase icon size */
-            color: #333; /* Icon color */
+            margin: 0 15px;
+            font-size: 2.2em;
+            color: var(--accent);
             text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.2);
         }
 
         footer {
-            background-color: #000000;
-            color: #fff;
+            background-color: var(--header);
+            color: var(--text-dark);
             text-align: center;
-            padding: 1em 0;
+            padding: 1.5em 0;
             position: relative;
             bottom: 0;
             width: 100%;
+            margin-top: 30px;
+        }
+
+        .theme-switch {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+            background-color: var(--accent);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .theme-switch:hover {
+            transform: scale(1.1);
+        }
+
+        #postsContainer {
+            margin-top: 20px;
+        }
+
+        .post {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--accent);
+        }
+
+        .post h3 {
+            color: var(--accent);
+        }
+
+        .post small {
+            color: var(--text);
+            opacity: 0.7;
+        }
+
+        .post:last-child {
+            border-bottom: none;
+        }
+
+        /* Stili per il login */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .login-container {
+            background-color: var(--card);
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-container h2 {
+            color: var(--accent);
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .login-container .input-group {
+            margin-bottom: 20px;
+        }
+
+        .login-container input {
+            width: calc(100% - 22px);
+        }
+
+        .login-container button {
+            width: 100%;
+            margin-top: 10px;
+            padding: 12px;
+        }
+
+        .login-error {
+            color: #f44336;
+            margin-top: 15px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .admin-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logout-btn {
+            background-color: #f44336;
+            padding: 8px 15px;
+        }
+
+        .logout-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .admin-indicator {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: var(--accent);
+        }
+
+        .admin-indicator i {
+            margin-right: 5px;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                width: 95%;
+            }
+            
+            nav a {
+                padding: 0.4em 0.8em;
+                font-size: 0.9em;
+            }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
     <header>
         <h1>SalvoGamerYT</h1>
-        <p>Welcome to my blog</p>
+        <p>Welcome to my gaming universe</p>
     </header>
 
     <nav>
@@ -95,37 +360,110 @@
         <a href="#youtube">YouTube</a>
         <a href="#twitch">Twitch</a>
         <a href="#posts">Posts</a>
+        <a href="#controls" id="controlsLink">Admin</a>
     </nav>
 
     <main>
         <section id="home" class="article">
             <h2>About Me</h2>
-            <p>I am a content creator that always streams videogames like Fortnite.</p>
+            <p>Ciao a tutti! Sono un content creator appassionato di gaming e mi piace condividere le mie sessioni di gioco, specialmente su Fortnite. Su questo sito troverai i miei ultimi streaming, video e aggiornamenti.</p>
         </section>
 
         <section id="youtube" class="article">
             <h2>YouTube</h2>
-            <p>Check out my latest YouTube livestreams!</p>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/a2rWPvn5V-8?si=-eFyxfjKg7dvzqUP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-         <p>and my latest videos!</p>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/AQFKatBOZOQ?si=cvv6TbNe5NjIcYNv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            <p><a href="https://youtube.com/channel/UC1rf55XEm_a_YX98tHYNlkg">Subscribe to me on YouTube</a></p>
+            <p>Ecco i miei ultimi contenuti su YouTube:</p>
+            
+            <div class="video-section">
+                <h3>Ultima Live</h3>
+                <div class="video-container" id="liveYoutubeContainer">
+                    <iframe id="liveYoutubeFrame" src="https://www.youtube.com/embed/a2rWPvn5V-8" title="YouTube live player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            </div>
+            
+            <div class="video-section">
+                <h3>Ultimo Video</h3>
+                <div class="video-container" id="videoYoutubeContainer">
+                    <iframe id="videoYoutubeFrame" src="https://www.youtube.com/embed/AQFKatBOZOQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            </div>
+            
+            <p><a href="https://youtube.com/channel/UC1rf55XEm_a_YX98tHYNlkg" target="_blank" style="color: var(--accent); font-weight: bold;">Iscriviti al mio canale YouTube</a></p>
         </section>
 
         <section id="twitch" class="article">
             <h2>Twitch</h2>
-            <p>Catch me live on Twitch!</p>
-            <iframe src="https://player.twitch.tv/?channel=salvogameryt1&parent=zsalvogamerx.github.io" frameborder="0" allowfullscreen="true" scrolling="no" height="300" width="100%"></iframe>
-            <p><a href="https://twitch.tv/salvogameryt1">Follow me on Twitch</a></p>
+            <p>Seguimi in diretta su Twitch!</p>
+            <div class="video-container">
+                <iframe id="twitchFrame" src="https://player.twitch.tv/?channel=salvogameryt1&parent=zsalvogamerx.github.io" frameborder="0" allowfullscreen="true" scrolling="no"></iframe>
+            </div>
+            <p><a href="https://twitch.tv/salvogameryt1" target="_blank" style="color: var(--accent); font-weight: bold;">Seguimi su Twitch</a></p>
         </section>
 
         <section id="posts" class="article">
-            <h2>Latest Posts</h2>
+            <h2>Ultimi Post</h2>
 
-            <article>
-                <h3>We are up to some buffoonery!!</h3>
-                <p>THIS WEBSITE IS WORKING holy shit.</p>
+            <article class="post">
+                <h3>Nuovo sito web con funzionalità dinamiche!</h3>
+                <p>Benvenuti nel mio sito web completamente rinnovato! Ora è possibile aggiornare facilmente i link ai miei video più recenti e scegliere tra modalità chiara o scura. Il sito è anche protetto da autenticazione per garantire che solo io possa aggiornarlo.</p>
+                <small>22/04/2025</small>
             </article>
+            
+            <div id="postsContainer">
+                <!-- I nuovi post verranno aggiunti qui -->
+            </div>
+        </section>
+        
+        <section id="controls" class="article hidden">
+            <h2>Pannello di Controllo</h2>
+            
+            <div class="admin-controls">
+                <div class="admin-indicator">
+                    <i class="fas fa-user-shield"></i> Modalità Amministratore
+                </div>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+            
+            <div id="videoControls">
+                <div class="input-group">
+                    <label for="liveYoutubeLink">Link Ultima Live YouTube (ID del video):</label>
+                    <input type="text" id="liveYoutubeLink" placeholder="Es. a2rWPvn5V-8">
+                </div>
+                
+                <div class="input-group">
+                    <label for="videoYoutubeLink">Link Ultimo Video YouTube (ID del video):</label>
+                    <input type="text" id="videoYoutubeLink" placeholder="Es. AQFKatBOZOQ">
+                </div>
+                
+                <div class="input-group">
+                    <label for="twitchChannel">Canale Twitch:</label>
+                    <input type="text" id="twitchChannel" placeholder="Es. salvogameryt1">
+                </div>
+                
+                <button onclick="updateVideos()">Aggiorna Video</button>
+                
+                <hr style="margin: 20px 0; border-color: var(--accent); opacity: 0.3;">
+                
+                <div class="input-group">
+                    <label for="postTitle">Titolo Nuovo Post:</label>
+                    <input type="text" id="postTitle" placeholder="Titolo del post">
+                </div>
+                
+                <div class="input-group">
+                    <label for="postContent">Contenuto Post:</label>
+                    <input type="text" id="postContent" placeholder="Contenuto del post">
+                </div>
+                
+                <button onclick="addNewPost()">Aggiungi Post</button>
+                
+                <hr style="margin: 20px 0; border-color: var(--accent); opacity: 0.3;">
+                
+                <div class="input-group">
+                    <label for="passwordChange">Cambia Password:</label>
+                    <input type="password" id="passwordChange" placeholder="Nuova password">
+                </div>
+                
+                <button onclick="changePassword()">Aggiorna Password</button>
+            </div>
         </section>
 
         <div class="social-links">
@@ -135,9 +473,191 @@
         </div>
     </main>
 
+    <!-- Overlay di Login -->
+    <div id="loginOverlay" class="login-overlay hidden">
+        <div class="login-container">
+            <h2>Accesso Amministratore</h2>
+            <div class="input-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" placeholder="Username">
+            </div>
+            <div class="input-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" placeholder="Password">
+            </div>
+            <button onclick="login()">Accedi</button>
+            <div id="loginError" class="login-error hidden">Username o password non validi</div>
+        </div>
+    </div>
+
+    <div class="theme-switch" onclick="toggleTheme()">
+        <i class="fas fa-sun" id="themeIcon"></i>
+    </div>
+
     <footer>
         <p>&copy; 2025 SalvoGamerYT</p>
     </footer>
 
+    <script>
+        // Credenziali predefinite (modifica queste con le tue credenziali reali)
+        let adminCredentials = {
+            username: "admin",
+            password: "adminpassword"
+        };
+        
+        // Stato di autenticazione
+        let isAuthenticated = false;
+        
+        // Elementi del DOM
+        const loginOverlay = document.getElementById('loginOverlay');
+        const controlsSection = document.getElementById('controls');
+        const controlsLink = document.getElementById('controlsLink');
+        
+        // Aggiungi event listener al link Admin
+        controlsLink.addEventListener('click', function(event) {
+            if (!isAuthenticated) {
+                event.preventDefault();
+                showLoginOverlay();
+            }
+        });
+        
+        // Funzione per mostrare l'overlay di login
+        function showLoginOverlay() {
+            loginOverlay.classList.remove('hidden');
+            document.getElementById('username').focus();
+        }
+        
+        // Funzione per nascondere l'overlay di login
+        function hideLoginOverlay() {
+            loginOverlay.classList.add('hidden');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('loginError').classList.add('hidden');
+        }
+        
+        // Funzione per effettuare il login
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === adminCredentials.username && password === adminCredentials.password) {
+                isAuthenticated = true;
+                hideLoginOverlay();
+                controlsSection.classList.remove('hidden');
+                document.getElementById('loginError').classList.add('hidden');
+                // Scroll verso il pannello di controllo
+                controlsSection.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                document.getElementById('loginError').classList.remove('hidden');
+            }
+        }
+        
+        // Funzione per effettuare il logout
+        function logout() {
+            isAuthenticated = false;
+            controlsSection.classList.add('hidden');
+            // Torna all'inizio della pagina
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Funzione per cambiare la password
+        function changePassword() {
+            const newPassword = document.getElementById('passwordChange').value;
+            
+            if (newPassword && newPassword.length >= 6) {
+                adminCredentials.password = newPassword;
+                document.getElementById('passwordChange').value = '';
+                alert('Password aggiornata con successo!');
+            } else {
+                alert('La password deve contenere almeno 6 caratteri.');
+            }
+        }
+        
+        // Funzione per cambiare tema (senza localStorage)
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.setAttribute('data-theme', 'light');
+                themeIcon.className = 'fas fa-moon';
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                themeIcon.className = 'fas fa-sun';
+            }
+        }
+        
+        // Funzione per aggiornare i video
+        function updateVideos() {
+            if (!isAuthenticated) {
+                showLoginOverlay();
+                return;
+            }
+            
+            const liveYoutubeLink = document.getElementById('liveYoutubeLink').value;
+            const videoYoutubeLink = document.getElementById('videoYoutubeLink').value;
+            const twitchChannel = document.getElementById('twitchChannel').value;
+            
+            if (liveYoutubeLink) {
+                document.getElementById('liveYoutubeFrame').src = `https://www.youtube.com/embed/${liveYoutubeLink}`;
+            }
+            
+            if (videoYoutubeLink) {
+                document.getElementById('videoYoutubeFrame').src = `https://www.youtube.com/embed/${videoYoutubeLink}`;
+            }
+            
+            if (twitchChannel) {
+                // Usa l'hostname corrente per permettere il caricamento dell'iframe
+                const currentHost = window.location.hostname || "zsalvogamerx.github.io";
+                document.getElementById('twitchFrame').src = `https://player.twitch.tv/?channel=${twitchChannel}&parent=${currentHost}`;
+            }
+            
+            alert('Video e canali aggiornati con successo!');
+        }
+        
+        // Funzione per aggiungere nuovi post
+        function addNewPost() {
+            if (!isAuthenticated) {
+                showLoginOverlay();
+                return;
+            }
+            
+            const postTitle = document.getElementById('postTitle').value;
+            const postContent = document.getElementById('postContent').value;
+            
+            if (postTitle && postContent) {
+                const newPost = document.createElement('article');
+                newPost.className = 'post';
+                
+                const today = new Date();
+                const formattedDate = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+                
+                newPost.innerHTML = `
+                    <h3>${postTitle}</h3>
+                    <p>${postContent}</p>
+                    <small>${formattedDate}</small>
+                `;
+                
+                // Inserisci il nuovo post all'inizio
+                const postsContainer = document.getElementById('postsContainer');
+                postsContainer.insertBefore(newPost, postsContainer.firstChild);
+                
+                // Reset form
+                document.getElementById('postTitle').value = '';
+                document.getElementById('postContent').value = '';
+                
+                alert('Post aggiunto con successo!');
+            } else {
+                alert('Per favore, inserisci sia un titolo che un contenuto per il post.');
+            }
+        }
+        
+        // Gestione dei tasti per il login
+        document.getElementById('password').addEventListener('keyup', function(event) {
+            if (event.key === "Enter") {
+                login();
+            }
+        });
+    </script>
 </body>
 </html>
